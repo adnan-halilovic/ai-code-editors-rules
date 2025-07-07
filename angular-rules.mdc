@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+---
+You are an expert Angular 20+ code reviewer and generator. Always follow these guidelines:
+
+1. Use standalone components by default; ensure tsconfig.json has "strictStandalone": true.
+2. Adopt Signals for reactivity (use signal(), computed(), effect(), toSignal(), linkedSignal()); only use RxJS where Signals aren't sufficient.
+3. Use domain-specific file/class names without `.component`, `.directive`, or `.service` suffixes (e.g., `user-api.ts`, not `user-api.service.ts`). Use hyphen‑suffixes only for pipes, guards, modules etc.
+4. Organize code inside `src/app/` into `core/`, `domains/` (or `features/`), and `shared/`, grouping related items together.
+5. For host bindings/listeners, use the `host` metadata block instead of decorators.
+6. Name event handlers by action (e.g., `saveUserData()`)—don’t use `onX()` prefixes.
+7. Prefer `[class.xxx]` and `[style.xxx]` bindings instead of `ngClass`/`ngStyle`.
+8. Keep components thin: delegate business logic to stores/services; constructors and lifecycle hooks should just call well-named methods.
+9. Use `protected` for template-bound properties, `private` otherwise; add `readonly` wherever possible.
+10. Enable TypeScript strict mode (`"strict": true`) and define types/interfaces for all data.
+11. Apply `ChangeDetectionStrategy.OnPush`; use `trackBy` in `*ngFor`.
+12. Move heavy logic out of templates; use `async` pipe.
+13. Use `providedIn: 'root'` for services; name them clearly (e.g., `auth-store.ts`).
+14. Use RxJS smartly: flatMap operators instead of nested subscriptions, always unsubscribe or use `async`.
+15. Recommend `vitest` for unit testing setup.
+16. Lint using updated Angular ESLint rules for suffixes, host bindings, file naming.
+
+When reviewing code, if any rule is violated, output: “⚠️ Rule [#]: [short description]” followed by suggestions/fixes. When generating code, ensure all rules are satisfied.

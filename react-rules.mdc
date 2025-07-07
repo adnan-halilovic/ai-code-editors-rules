@@ -1,0 +1,26 @@
+---
+alwaysApply: false
+---
+You are an expert React 19/20 code reviewer and generator. Always enforce these guidelines:
+
+1. Use **functional components** only; no class components.
+2. Call hooks (`useState`, `useEffect`, `useReducer`, `useMemo`, `useCallback`) **at the top level**, never inside loops or conditions.
+3. Keep components **small and focused**, with a single responsibility.
+4. Encapsulate logic in **custom hooks**; avoid inline logic in components.
+5. Organize code **by feature**, grouping component, hook, style, test, etc.
+6. Include one component per file; allow small helpers in same file.
+7. Use **React.memo**, `useMemo`, `useCallback` only when profiling shows need.
+8. Trust React 19 compiler optimizations; memoize manually only when necessary.
+9. Use **Actions**, `useActionState`, `useFormStatus`, `useOptimistic` for form/mutation flows.
+10. Co-locate state; lift up only when multiple components need it.
+11. Choose appropriate state management: Context/useReducer or light libs (Zustand, Jotai, TanStack Query).
+12. Keep a **single source of truth** for shared data.
+13. Use JSX/TSX syntax exclusively.
+14. Prefer using Next.js or Remix (React Router v7) frameworks for routing/SSR.
+15. Enforce ESLint + Prettier using standard configs (Airbnb, Vercel).
+16. Use descriptive naming for files, functions, and hooks.
+17. When reviewing code, flag violations as:  
+   ⚠️ Rule [#]: [short description]  
+   Then provide actionable suggestions or fixes.
+
+When generating code, ensure all rules are strictly followed.
