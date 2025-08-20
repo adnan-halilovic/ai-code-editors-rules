@@ -1,0 +1,154 @@
+# Comprehensive Frontend Code Review Rule
+
+## COMMIT Command Trigger
+When the user types "COMMIT" in the chat, automatically run this complete code review checklist on all modified files in the current project.
+
+## Core Review Categories
+
+### 1. CODE STYLE & FORMATTING
+- **Consistent Indentation**: Ensure 2-space indentation for TypeScript/JavaScript, HTML, CSS/SCSS
+- **Line Length**: Maximum 100 characters per line (configurable)
+- **Naming Conventions**:
+  - Variables and functions: camelCase
+  - Components: PascalCase
+  - Constants: SCREAMING_SNAKE_CASE
+  - CSS classes: kebab-case or BEM methodology
+- **Import Organization**: Group and sort imports (external libraries first, then internal modules)
+- **Trailing Commas**: Enforce trailing commas in multiline objects and arrays
+- **Semicolons**: Enforce consistent semicolon usage
+- **Quote Style**: Prefer single quotes for strings, double quotes for JSX attributes
+
+### 2. SECURITY VULNERABILITIES
+- **XSS Prevention**: Check for unescaped user input in templates and JSX
+- **SQL Injection**: Verify parameterized queries (if applicable)
+- **CSRF Protection**: Ensure proper CSRF tokens in forms
+- **Content Security Policy**: Verify CSP headers and inline script usage
+- **Authentication**: Check for proper JWT handling and token storage
+- **Input Validation**: Ensure all user inputs are validated and sanitized
+- **Environment Variables**: Verify sensitive data is not hardcoded
+- **Dependency Vulnerabilities**: Flag outdated or vulnerable dependencies
+- **HTTPS Enforcement**: Ensure HTTPS-only configurations in production
+
+### 3. PERFORMANCE OPTIMIZATION
+- **Bundle Size**: Check for unnecessary large dependencies or imports
+- **Code Splitting**: Verify lazy loading implementation for routes and components
+- **Tree Shaking**: Ensure imports are specific (avoid `import *`)
+- **Image Optimization**: Check for proper image formats and lazy loading
+- **Memoization**: Identify opportunities for React.memo, useMemo, useCallback
+- **Virtual Scrolling**: Suggest virtual scrolling for large lists
+- **Web Vitals**: Consider Core Web Vitals impact (LCP, FID, CLS)
+- **Caching Strategies**: Verify proper HTTP caching and service worker usage
+
+### 4. ANGULAR 20 SPECIFIC CHECKS
+- **Standalone Components**: Prefer standalone components over NgModules
+- **Control Flow Syntax**: Use new `@if`, `@for`, `@switch` syntax instead of structural directives
+- **Signals**: Use Angular Signals for reactive state management
+- **New Lifecycle Hooks**: Utilize `afterNextRender`, `afterRender` appropriately
+- **Injection Context**: Use `inject()` function instead of constructor injection
+- **OnPush Strategy**: Verify ChangeDetectionStrategy.OnPush usage
+- **Track By Functions**: Ensure trackBy functions for ngFor loops
+- **Async Pipe**: Prefer async pipe over manual subscriptions
+- **RxJS Best Practices**: Check for proper subscription management and operators usage
+
+### 5. REACT/NEXT.JS 15 SPECIFIC CHECKS
+- **React Server Components**: Verify proper RSC vs Client Component usage
+- **App Router**: Ensure correct usage of Next.js 15 App Router features
+- **Streaming**: Check for proper Suspense boundaries and streaming
+- **Server Actions**: Verify proper server action implementations
+- **Middleware**: Check Next.js middleware for performance and security
+- **Image Component**: Use Next.js Image component for optimization
+- **Font Optimization**: Verify Next.js font optimization usage
+- **React Hooks Rules**: Ensure hooks are called at the top level
+- **Key Props**: Verify unique and stable keys in lists
+- **useEffect Dependencies**: Check for missing or unnecessary dependencies
+
+### 6. CODE COMPLEXITY & MAINTAINABILITY
+- **Cyclomatic Complexity**: Flag functions with complexity > 10
+- **Function Length**: Suggest refactoring functions > 50 lines
+- **Component Props**: Limit component props to < 10, suggest composition
+- **Nesting Levels**: Flag deep nesting (> 4 levels)
+- **Single Responsibility**: Ensure components/functions have single purpose
+- **DRY Principle**: Identify code duplication opportunities
+- **SOLID Principles**: Check adherence to SOLID principles
+- **Magic Numbers**: Flag hardcoded numbers, suggest constants
+
+### 7. ACCESSIBILITY (A11Y)
+- **Semantic HTML**: Ensure proper semantic elements usage
+- **ARIA Labels**: Check for missing aria-labels and descriptions
+- **Keyboard Navigation**: Verify tabindex and keyboard accessibility
+- **Color Contrast**: Flag potential color contrast issues
+- **Alt Text**: Ensure all images have descriptive alt text
+- **Focus Management**: Check focus states and management
+- **Screen Reader Support**: Verify screen reader compatibility
+
+### 8. TYPE SAFETY (TYPESCRIPT)
+- **Strict Mode**: Ensure TypeScript strict mode is enabled
+- **Any Usage**: Flag usage of `any` type and suggest alternatives
+- **Null/Undefined Checks**: Verify proper null/undefined handling
+- **Interface vs Type**: Prefer interfaces for object shapes
+- **Generic Usage**: Check for proper generic constraints
+- **Enum vs Union Types**: Prefer const assertions over enums
+- **Return Types**: Ensure explicit return types for functions
+
+### 9. TESTING READINESS
+- **Test IDs**: Verify data-testid attributes for testing
+- **Pure Functions**: Identify and promote testable pure functions
+- **Mocking Points**: Identify external dependencies for mocking
+- **Component Isolation**: Check component coupling for unit testing
+- **Error Boundaries**: Verify error boundary implementations
+
+### 10. ERROR HANDLING
+- **Try-Catch Blocks**: Ensure proper error handling in async operations
+- **Error Boundaries**: Check React Error Boundaries implementation
+- **User Feedback**: Verify user-friendly error messages
+- **Logging**: Check for proper error logging and monitoring
+- **Graceful Degradation**: Ensure app handles failures gracefully
+
+### 11. MODERN BEST PRACTICES
+- **ES2024 Features**: Suggest modern JavaScript features where applicable
+- **Web APIs**: Recommend modern Web APIs over polyfills
+- **CSS Modern Features**: Suggest CSS Grid, Flexbox, Container Queries
+- **Progressive Enhancement**: Verify progressive enhancement principles
+- **Web Standards**: Ensure compliance with web standards
+
+## COMMIT Command Action Steps
+
+1. **Scan Modified Files**: Identify all changed files in the current branch
+2. **Apply Rules by File Type**:
+   - `.ts/.tsx/.js/.jsx`: Apply all TypeScript/JavaScript rules
+   - `.html`: Apply HTML and accessibility rules
+   - `.scss/.css`: Apply CSS and performance rules
+   - `package.json`: Check dependencies and security
+3. **Generate Report**: Create a prioritized list of issues:
+   - 🔴 Critical (Security, Breaking Changes)
+   - 🟡 Important (Performance, Maintainability)
+   - 🟢 Suggestions (Style, Best Practices)
+4. **Provide Fixes**: Offer specific code suggestions for each issue
+5. **Performance Impact**: Estimate bundle size and performance impact
+6. **Ready to Commit**: Confirm if code meets all criteria for commit
+
+## Custom Configuration Options
+```json
+{
+  "maxLineLength": 100,
+  "maxCyclomaticComplexity": 10,
+  "maxFunctionLength": 50,
+  "maxComponentProps": 10,
+  "enforceStrictMode": true,
+  "preferredQuoteStyle": "single",
+  "indentationSize": 2,
+  "framework": ["angular", "react", "nextjs"],
+  "customPatterns": {
+    "securityPatterns": [],
+    "performancePatterns": [],
+    "stylePatterns": []
+  }
+}
+```
+
+## Integration Commands
+- Type `COMMIT` to run complete code review
+- Type `SECURITY` to run only security checks
+- Type `PERFORMANCE` to run only performance checks  
+- Type `STYLE` to run only code style checks
+- Type `A11Y` to run only accessibility checks
